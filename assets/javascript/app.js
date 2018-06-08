@@ -1,26 +1,29 @@
 //add countdown timer for questions
 
 let count=30;
-window.setInterval(timer,1000);
+let x=setInterval(timer,1000);
 
 function timer(){
 	count-=1;
 	$("#timer").text("Time Remaining: " + count);
 	
 	if(triviaGame.questioncount == triviaGame.questions.length){
-		clearInterval(timer);
+		clearInterval(x);
+		
 
 	}else{
 		if(count<=0){
 			triviaGame.incorrect+=1;
-			$("#incorrect").text("Incorrect: " + triviaGame.incorrect);
+			alert("Whoops you ran out of time! The correct answer was: " + triviaGame.questions[triviaGame.questioncount - 1].answer +  ".  You will be penalized with one incorrect answer");
+			$("#incorrect").text("Incorrect Answers: " + triviaGame.incorrect);
 			triviaGame.loader();
 			count+=30;
 			$("#timer").text("Time Remaining: " + count);
+			
 		
 		};
 
-}};
+} return;};
 	
 
 //Create triviaGame object
@@ -40,33 +43,33 @@ let triviaGame = {
 		answer: "Buttermilk",
 		choices: ["Buttermilk", "Daisy", "Scout"]
 	}, {
-		question: "Was that a test question?",
-		answer: "Yes",
-		choices: ["Yes", "No", "I dont know"]
+		question: "Who holds the record for the most victories in a row on the professional golf tour?",
+		answer: "Byron Nelson",
+		choices: ["Jack Nicklaus", "Byron Nelson", "Arnold Palmer"]
 	}, {
-		question: "Was that a test question?",
-		answer: "Yes",
-		choices: ["Yes", "No", "I dont know"]
+		question: "Who is third behind Hank Aaron and Babe Ruth in major league career home runs?",
+		answer: "Willie Mays",
+		choices: ["Harmon Killebrew", "Willie Mays", "Frank Robinson"]
 	}, {
-		question: "Was that a test question?",
-		answer: "Yes",
-		choices: ["Yes", "No", "I dont know"]
+		question: "In 1990, in what percentage of U.S. married couples did the wife earn more money than the husband?",
+		answer: "18",
+		choices: ["18", "38", "9"]
 	}, {
-		question: "Was that a test question?",
-		answer: "Yes",
-		choices: ["Yes", "No", "I dont know"]
+		question: "During the 1980s for six consecutive years what breed of dog was the most popular in the U.S.?",
+		answer: "Cocker Spaniel",
+		choices: ["German shepherd", "Golden Retriever", "Cocker Spaniel"]
 	}, {
-		question: "Was that a test question?",
-		answer: "Yes",
-		choices: ["Yes", "No", "I dont know"]
+		question: "In 1985, five percent of U.S. households had telephone answering machines. By 1990 what percentage of homes had answering machines?",
+		answer: "31 percent",
+		choices: ["31 percent", "10 percent", "51 percent"]
 	}, {
-		question: "Was that a test question?",
-		answer: "Yes",
-		choices: ["Yes", "No", "I dont know"]
+		question: "The first black American pictured on a U.S. postage stamp was who?",
+		answer: "Joe Louis",
+		choices: ["Louis Armstrong", "Joe Louis", "Booker T. Washington"]
 	}, {
-		question: "End test?",
-		answer: "Yes",
-		choices: ["Yes", "No", "I dont know"]
+		question: "When Mt. St. Helens erupted on May 18, 1980, how many people were killed?",
+		answer: "57",
+		choices: ["150", "1", "57"]
 	}], 
 	
 	timer: 30,
@@ -94,8 +97,6 @@ let triviaGame = {
 			this.choicecount = 0;
 			this.questioncount +=1;
 			
-			console.log(triviaGame.questioncount);
-			console.log(this.questions[this.questioncount - 1].answer);
 			
 			} };
 			
@@ -110,24 +111,32 @@ function checkans() {
  var a= document.getElementsByName("choice");
  for (var i = 0; i < a.length; i++) {
 	if (a[i].checked==true) {
-		clearInterval(timer);
 		let add = (30 - count) + 1;
 		count+=add;
-		console.log(triviaGame.questions[triviaGame.questioncount - 1].answer);
 		if(a[i].value == triviaGame.questions[triviaGame.questioncount - 1].answer){
 			triviaGame.correct += 1;
-			$("#correct").text("Correct: " + triviaGame.correct);
+			$("#correct").text("Correct Answers: " + triviaGame.correct);
+			alert("Correct!. Great Job!");
 			if(triviaGame.questioncount == triviaGame.questions.length){
-				console.log("end");
+				$("#myform").empty();
+				$("#question").text("You answered " + triviaGame.correct + "questions correctly and " + triviaGame.incorrect + "incorrectly");
+				$("#timer").empty();
+				$("#correct").empty();
+				$("#incorrect").empty();
 				//put end function for correct / incorrect answers here
 			}else {
 			triviaGame.loader();
 			}
 		}else{
+			alert("Incorrect. The correct answer was: " + triviaGame.questions[triviaGame.questioncount - 1].answer);
 			triviaGame.incorrect += 1;
-			$("#incorrect").text("Incorrect: " + triviaGame.incorrect);
+			$("#incorrect").text("Incorrect Answers: " + triviaGame.incorrect);
 			if(triviaGame.questioncount == triviaGame.questions.length){
-				console.log("end");
+				$("#question").text("You answered " + triviaGame.correct + "  questions correctly and " + triviaGame.incorrect + "  incorrectly");
+				$("#myform").empty();
+				$("#timer").empty();
+				$("#correct").empty();
+				$("#incorrect").empty();
 				//put end function for correct / incorrect answers here
 			}else {			
 			triviaGame.loader();
