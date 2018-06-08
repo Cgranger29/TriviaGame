@@ -1,5 +1,7 @@
 .headerText{
 	color: white;
+	text-align: center;
+	font-size: 30px;
 }
 
 #correct, #incorrect{
@@ -8,4 +10,10 @@
 	text-align: left;
 	color: green;
 	
+}
+
+#timer{
+	font-size: 25px;
+	color: blue;
+
 }
